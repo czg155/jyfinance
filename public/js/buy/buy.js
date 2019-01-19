@@ -94,6 +94,7 @@ function findSelData() {
 		dataType: "json",
 		success:function(r){
 			if (r.sign == 1) {
+				console.log(r.inputs);
 				var get_data = r.inputs;
 				var s = '';
 				for (var i = 0; i < get_data.length; i++) {

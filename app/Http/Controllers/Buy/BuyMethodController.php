@@ -170,37 +170,43 @@ class BuyMethodController extends Controller
         $s = 'select * from buy';
         $b = 1;
         foreach ($inputs as $key => $value) {
-            if ($key == 'beginTime') {
-                if (!empty($value)) {
-                    if ($b) {
-                        $s = $s . ' where ';
-                        $b = 0;
-                    } else {
-                        $s = $s . ' and ';
+
+            switch ($key) {
+                case 'beginTime':
+                    if (!empty($value)) {
+                        if ($b) {
+                            $s = $s . ' where ';
+                            $b = 0;
+                        } else {
+                            $s = $s . ' and ';
+                        }
+                        $s = $s . 'date>="' . $value . '"';
                     }
-                    $s = $s . 'date>="' . $value . '"';
-                }
-            } elseif ($key == 'endTime'){
-                if (!empty($value)) {
-                    if ($b) {
-                        $s = $s . ' where ';
-                        $b = 0;
-                    } else {
-                        $s = $s . ' and ';
+                    break;
+                case 'endTime':
+                    if (!empty($value)) {
+                        if ($b) {
+                            $s = $s . ' where ';
+                            $b = 0;
+                        } else {
+                            $s = $s . ' and ';
+                        }
+                        $s = $s . 'date<="' . $value . '"';
                     }
-                    $s = $s . 'date<="' . $value . '"';
-                }
-            } else {
-                if (!empty($value)) {
-                    if ($b) {
-                        $s = $s . ' where ';
-                        $b = 0;
-                    } else {
-                        $s = $s . ' and ';
+                    break;
+                default:
+                    if (!empty($value) && $value != -1) {
+                        if ($b) {
+                            $s = $s . ' where ';
+                            $b = 0;
+                        } else {
+                            $s = $s . ' and ';
+                        }
+                        $s = $s . $key . '="' . $value . '"';
                     }
-                    $s = $s . $key . '="' . $value . '"';
-                }
+                    break;
             }
+
         }
         // return $s;
         $get_data = DB::select($s);
