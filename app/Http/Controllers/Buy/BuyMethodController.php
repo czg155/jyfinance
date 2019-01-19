@@ -40,79 +40,22 @@ class BuyMethodController extends Controller
                 ]
             );
 
-            //根据数据库中的buy_product表(id, product, company)，若有新的product，
-            //则存为$new_product[product] = company;键为product，值为对应的company
-
+            //为new_attr填充数据
             if (!in_array($value['company'], array_keys($attr)) || !in_array($value['product'], array_keys($attr[$value['company']])) || !in_array($value['type'], array_values($attr[$value['company']][$value['product']]))) {
                 if (!in_array($value['company'], array_keys($new_attr))) {
+                    $new_attr[$value['company']] = [];
+                }
+                if (!in_array($value['product'], array_keys($new_attr[$value['company']]))) {
+                    $new_attr[$value['company']][$value['product']] = [];
+                }
+                if (!in_array($value['type'], array_values($new_attr[$value['company']][$value['product']]))) {
                     $new_attr[$value['company']][$value['product']][] = $value['type'];
-                } else {
-                    if (!in_array($value['product'], array_keys($new_attr['company']))) {
-                        $new_attr[$value['company']][$value['product']][] = $value['type'];
-                    } else {
-                        if (!in_array($value['type'], array_value($new_attr['company']['type']))) {
-                            $new_attr[$value['company']][$value['product']][] = $value['type'];
-                        }
-                    }
                 }
             }
-            //////////////////////////////////////////////////////////////////////////
-            //It is 上面if(..||..||..||)的展开，若上面if报错用这段
-            // if (!in_array($value['company'], array_keys($attr))) {
-            //     if (!in_array($value['company'], array_keys($new_attr))) {
-            //         $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //     } else {
-            //         if (!in_array($value['product'], array_keys($new_attr['company']))) {
-            //             $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //         } else {
-            //             if (!in_array($value['type'], array_value($new_attr['company']['type']))) {
-            //                 $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //             }
-            //         }
-            //     }
-            // } else {
-            //     if (!in_array($value['product'], array_keys($attr[$value['company']]))) {
-            //         if (!in_array($value['company'], array_keys($new_attr))) {
-            //             $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //         } else {
-            //             if (!in_array($value['product'], array_keys($new_attr['company']))) {
-            //                 $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //             } else {
-            //                 if (!in_array($value['type'], array_value($new_attr['company']['type']))) {
-            //                     $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //                 }
-            //             }
-            //         }
-            //     } else {
-            //         if (!in_array($value['type'], array_values($attr[$value['company']][$value['product']]))) {
-            //             if (!in_array($value['company'], array_keys($new_attr))) {
-            //                 $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //             } else {
-            //                 if (!in_array($value['product'], array_keys($new_attr['company']))) {
-            //                     $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //                 } else {
-            //                     if (!in_array($value['type'], array_value($new_attr['company']['type']))) {
-            //                         $new_attr[$value['company']][$value['product']][] = $value['type'];
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-            /////////////////////////////////////////////////////////////////////////
+
         }
 
-        //为buy_company, buy_product, buy_type中不存在的值更新属性。
-        // foreach ($new_company as $key => $value) {
-        //     DB::insert('insert into buy_company (company) values (?)', [$value]);
-        // }
-        // foreach ($new_product as $key => $value) {
-        //     DB::insert('insert into buy_product (product, company) values (?, ?)', [$key, $value]);
-        // }
-        // foreach ($new_type as $key => $value) {
-        //     DB::insert('insert into buy_type (type, product) values (?, ?)', [$key, $value]);
-        // }
-
+        //buy-attr-relation更新
         foreach ($new_attr as $key_company => $value_company) {
             foreach ($value_company as $key_product => $value_product) {
                 foreach ($value_product as $key_type => $value_type) {
@@ -123,7 +66,7 @@ class BuyMethodController extends Controller
             }
         }
 
-        return 0;
+        return response()->json(array('sign' => 1));
     }
 
     public function deleteBuy(Request $request) {

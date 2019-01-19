@@ -52,16 +52,7 @@
 			</thead>
 			<tbody id="sel_data">
 				<tr>
-					<td class="number"><input type="number" name="number" maxlength="20"></td>
-					<td class="date"><input type="date" name="date" maxlength="20"></td>
-					<td class="company"><input type="text" name="company" maxlength="20"></td>
-					<td class="product"><input type="text" name="product" maxlength="10"></td>
-					<td class="type"><input type="text" name="type" maxlength="10"></td>
-					<td class="car"><input type="text" name="car" maxlength="10"></td>
-					<td class="weight"><input type="number" name="weight" maxlength="20"></td>
-					<td class="tip"><input type="text" name="tip" maxlength="20"></td>
-					<td class="delete"><button>删除</button></td>
-					<td class="update"><button>修改</button></td>
+					<td>请查找数据</td>
 				</tr>
 			</tbody>
 		</table>

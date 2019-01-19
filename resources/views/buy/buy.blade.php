@@ -48,38 +48,23 @@
 	</div>
 	<div class="dataview">
 		<table border="1" class="table-data">
-			<tr>
-				<th class="id">编号</th>
-				<th class="date">日期</th>
-				<th class="company">供货单位</th>
-				<th class="product">产品名称</th>
-				<th class="type">规格</th>
-				<th class="car">运输车号</th>
-				<th class="weight">净重</th>
-				<th class="tip">备注</th>
-			</tr>
-				<!-- <?php
-				//if ($gets) {
-					//foreach ($gets as $key => $value) {
-				?>
-			<tr>
-						<td><?php //echo $value["number"]; ?></td>
-						<td><?php //echo $value["date"]; ?></td>
-						<td><?php //echo $value["company"]; ?></td>
-						<td><?php //echo $value["product"]; ?></td>
-						<td><?php //echo $value["type"]; ?></td>
-						<td><?php //echo $value["car"]; ?></td>
-						<td><?php //echo $value["weight"]; ?></td>
-						<td><?php //echo $value["tip"]; ?></td>
-			</tr>
-				<?php
-					//}
-				//} else {
-				?>
-						<td>//无数据</td>
-				<?php
-					//}
-				?> -->
+			<thead>
+				<tr>
+					<th class="number">编号</th>
+					<th class="date">日期</th>
+					<th class="company">供货单位</th>
+					<th class="product">产品名称</th>
+					<th class="type">规格</th>
+					<th class="car">运输车号</th>
+					<th class="weight">净重</th>
+					<th class="tip">备注</th>
+				</tr>
+			</thead>
+			<tbody id="sel_data">
+				<tr>
+					<td>请查找数据！</td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 </body>

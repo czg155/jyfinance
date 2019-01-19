@@ -1,1 +1,4 @@
-在operate_buy页面中删除，修改完成
+增删改查完成
+next修改单价页面
+1、增加单价字段
+2、单价页面：修改单价项，company,product, type, beginTime, endTime, price
