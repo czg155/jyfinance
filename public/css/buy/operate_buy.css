@@ -50,6 +50,9 @@ html, body {
 }
 
 .table-data tr .id {
+	display: none;
+}
+.table-data tr .number {
 	width: 8%;
 }
 .table-data tr .date {

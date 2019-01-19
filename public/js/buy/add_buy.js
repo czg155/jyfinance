@@ -7,12 +7,14 @@ function saveAddBuyValue() {
 		var check = 0;
 		$.each(td, function() {
 			var o = $(this).find('input');
-			if ($.isEmptyObject($(o).val())) 
+			if ($.isEmptyObject($(o).val())) {
 				check += 1;
-				obj[$(o).attr('name')] = $(o).val();
+			}
+			obj[$(o).attr('name')] = $(o).val();
 		});
-		if (check < 8)
+		if (check < 8) {
 			objArray.push(obj);
+		}
 	});
 
 	$.ajax({

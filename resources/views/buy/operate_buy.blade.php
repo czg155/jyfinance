@@ -6,7 +6,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<link rel="stylesheet" type="text/css" href="../css/buy/operate_buy.css">
 	<script type="text/javascript" src="../js/lib/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="../js/buy/buy.js"></script>
+	<script type="text/javascript" src="../js/buy/operate_buy.js"></script>
 </head>
 <body>
 	<div class="operate">
@@ -39,7 +39,7 @@
 	<div class="operatebox">
 		<table class="table-data" id="operate-buy-table">
 			<thead>
-				<th class="id">编号</th>
+				<th class="number">编号</th>
 				<th class="date">日期</th>
 				<th class="company">供货单位</th>
 				<th class="product">产品名称</th>
@@ -52,7 +52,7 @@
 			</thead>
 			<tbody id="sel_data">
 				<tr>
-					<td class="id"><input type="number" name="number" maxlength="20"></td>
+					<td class="number"><input type="number" name="number" maxlength="20"></td>
 					<td class="date"><input type="date" name="date" maxlength="20"></td>
 					<td class="company"><input type="text" name="company" maxlength="20"></td>
 					<td class="product"><input type="text" name="product" maxlength="10"></td>

@@ -128,13 +128,31 @@ class BuyMethodController extends Controller
 
     public function deleteBuy(Request $request) {
         $inputs = $request->input('inputs');
-        $deleted = DE::delete('delete from buy where id = ?', [$inputs]);
-        return 0;
+        DB::table('buy')->where('id', '=', $inputs)->delete();
+        return response()->json(array('sign' => 1));
     }
 
     public function updateBuy(Request $request) {
         $inputs = $request->input('inputs');
-        $affected = DB::update('update buy set ');
+        if (empty($inputs)) {
+            return response()->json(array('sign' => 0));
+        } else {
+            $s = 'update buy set ';
+            $i = 0;
+            foreach ($inputs as $key => $value) {
+                if ($key != 'id') {
+                    if ($i > 0) {
+                        $s = $s . ',' . $key . '=' . '"' . $value . '"';
+                    } else {
+                        $s = $s . '' . $key . '=' . '"' . $value . '"';
+                    }
+                    $i = $i + 1;
+                }
+            }
+            $s = $s . 'where buy.id=' . $inputs['id'];
+            DB::update($s);
+            return response()->json(array('sign' => 1));
+        }
     }
 
     public function sortAttrBuy()
