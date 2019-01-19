@@ -27,7 +27,18 @@ class BuyMethodController extends Controller
 
         $new_attr = [];
         foreach ($inputs as $key => $value) {
-            // DB::insert('insert into buy (number, date, company, product, type, car, weight, tip) values (?, ?, ?, ?, ?, ?, ?, ?)', [$value['number'], $value['date'], $value['company'], $value['product'], $value['type'], $value['car'], $value['weight'], $value['tip']]);
+            DB::table('buy')->insert(
+                [
+                    'number' => $value['number'],
+                    'date' => $value['date'],
+                    'company' => $value['company'],
+                    'product' => $value['product'],
+                    'type' => $value['type'],
+                    'car' => $value['car'],
+                    'weight' => $value['weight'],
+                    'tip' => $value['tip']
+                ]
+            );
 
             //根据数据库中的buy_product表(id, product, company)，若有新的product，
             //则存为$new_product[product] = company;键为product，值为对应的company
@@ -102,25 +113,16 @@ class BuyMethodController extends Controller
         //     DB::insert('insert into buy_type (type, product) values (?, ?)', [$key, $value]);
         // }
 
-        foreach ($attr as $key_company => $value_company) {
-            foreach ($value_company as $key_product => $value_product) {
-                foreach ($value_product as $key_type => $value_type) {
-                    print($key_company. '------' . $key_product. '-------' .$value_type);
-                    print('<br>');
-                }
-            }
-        }
-        print('<br>');
-        print('<-------------------------->');
-        print('<br>');
         foreach ($new_attr as $key_company => $value_company) {
             foreach ($value_company as $key_product => $value_product) {
                 foreach ($value_product as $key_type => $value_type) {
-                    print($key_company. '------' .$key_product. '-------' .$value_type);
-                    print('<br>');
+                    DB::table('buy-attr-relation')->insert(
+                        ['company' => $key_company, 'product' => $key_product, 'type' => $value_type]
+                    );
                 }
             }
         }
+
         return 0;
     }
 
@@ -137,24 +139,29 @@ class BuyMethodController extends Controller
 
     public function sortAttrBuy()
     {
-        // $get_companys = DB::select('select company from buy_company');
-        // $get_products = DB::select('select product, company from buy_product');
-        // $get_types = DB::select('select type, product from buy_type');
-        $company = [];
-        $product = array();
-        $type = array();
-        foreach ($get_companys as $key => $value) {
-            $company[] = $value->company;
-            $product[$value->company] = [];
+        $gets = DB::table('buy-attr-relation')->get();
+        $attr_all = [];
+        $attr_product_type = [];
+        foreach ($gets as $key => $value) {
+            if (!in_array($value->company, array_keys($attr_all))) {
+                $attr_all[$value->company] = [];
+            }
+            if (!in_array($value->product, array_keys($attr_all[$value->company]))) {
+                $attr_all[$value->company][$value->product] = [];
+            }
+            if (!in_array($value->type, array_values($attr_all[$value->company][$value->product]))) {
+                $attr_all[$value->company][$value->product][] = $value->type;
+            }
+
+            //$attr_product_type赋值
+            if (!in_array($value->product, array_keys($attr_product_type))) {
+                $attr_product_type[$value->product] = [];
+            }
+            if (!in_array($value->type, array_values($attr_product_type[$value->product]))) {
+                $attr_product_type[$value->product][] = $value->type;
+            }
         }
-        foreach ($get_products as $key => $value) {
-            $product[$value->company][] = $value->product;
-            $type[$value->product] = [];
-        }
-        foreach ($get_types as $key => $value) {
-            $type[$value->product][] = $value->type;
-        }
-        return response()->json(array('sign' => 1, 'inputs_company' => $company, 'inputs_product' => $product, 'inputs_type' => $type));
+        return response()->json(array('sign' => 1, 'attr_all' => $attr_all, 'attr_product_type' => $attr_product_type));
     }
 
     public function selBuy(Request $request)

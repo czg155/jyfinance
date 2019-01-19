@@ -3,8 +3,11 @@
 <head>
 	<title>入库</title>
 	@extends('layouts.f_zero')
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<link rel="stylesheet" type="text/css" href="css/buy/buy.css">
 	<link rel="stylesheet" type="text/css" href="css/buy/table.css">
+	<script type="text/javascript" src="js/lib/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/buy/buy.js"></script>
 </head>
 <body>
 	<div class="head">
@@ -14,35 +17,26 @@
 		<ul class="operate-left-buttons">
 			<li>
 				<span>供货单位：</span>
-				<select>
-					<option>厂家A</option>
-					<option>厂家B</option>
-					<option>厂家C</option>
-					<option>厂家D</option>
-					<option>厂家E</option>
+				<select id="sel_company" onchange="changeCompany(this.options[this.options.selectedIndex].value)">
 				</select>
 			</li>
 			<li>
 				<span>产品名称：</span>
-				<select>
-					<option>产品A</option>
-					<option>产品B</option>
-					<option>产品C</option>
-					<option>产品D</option>
-					<option>产品E</option>
+				<select id="sel_product" onchange="changeProduct(this.options[this.options.selectedIndex].value)">
 				</select>
 			</li>
 			<li>
 				<span>规格：</span>
-				<select>
-					<option>规格A</option>
-					<option>规格B</option>
-					<option>规格C</option>
-					<option>规格D</option>
-					<option>规格E</option>
+				<select id="sel_type">
 				</select>
 			</li>
-			<li><button>查找</button></li>
+			<li>
+				起始时间：<input id="sel_begin_time" type="date" name="begin_date">
+			</li>
+			<li>
+				结束时间：<input id="sel_end_time" type="date" name="end_date">
+			</li>
+			<li><button onclick="findSelData()">查找</button></li>
 			<li><button>刷新</button></li>
 			<li><button>报表分析</button></li>
 		</ul>
@@ -64,28 +58,28 @@
 				<th class="weight">净重</th>
 				<th class="tip">备注</th>
 			</tr>
-				<?php
-				if ($gets) {
-					foreach ($gets as $key => $value) {
+				<!-- <?php
+				//if ($gets) {
+					//foreach ($gets as $key => $value) {
 				?>
 			<tr>
-						<td><?php echo $value["number"]; ?></td>
-						<td><?php echo $value["date"]; ?></td>
-						<td><?php echo $value["company"]; ?></td>
-						<td><?php echo $value["product"]; ?></td>
-						<td><?php echo $value["type"]; ?></td>
-						<td><?php echo $value["car"]; ?></td>
-						<td><?php echo $value["weight"]; ?></td>
-						<td><?php echo $value["tip"]; ?></td>
+						<td><?php //echo $value["number"]; ?></td>
+						<td><?php //echo $value["date"]; ?></td>
+						<td><?php //echo $value["company"]; ?></td>
+						<td><?php //echo $value["product"]; ?></td>
+						<td><?php //echo $value["type"]; ?></td>
+						<td><?php //echo $value["car"]; ?></td>
+						<td><?php //echo $value["weight"]; ?></td>
+						<td><?php //echo $value["tip"]; ?></td>
 			</tr>
 				<?php
-					}
-				} else {
+					//}
+				//} else {
 				?>
-						<td>无数据</td>
+						<td>//无数据</td>
 				<?php
-					}
-				?>
+					//}
+				?> -->
 		</table>
 	</div>
 </body>

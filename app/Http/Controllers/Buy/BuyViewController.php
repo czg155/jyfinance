@@ -29,36 +29,32 @@ class BuyViewController extends Controller
     }
 
     public function getBuy(){
-        //查询数据库，获取数据库原始数据
-        $gets = DB::select('select * from buy');
+        // //查询数据库，获取数据库原始数据
+        // $gets = DB::select('select * from buy');
 
-        //将原始数据处理
-        $array = null;
-        $arr_length = sizeof($gets);
+        // //将原始数据处理
+        // $array = null;
+        // $arr_length = sizeof($gets);
 
-        for ($i=0; $i < $arr_length; $i++) { 
-            $array[$i]['id'] = $gets[$i]->id;
-            $array[$i]['number'] = $gets[$i]->number;
-            $array[$i]['date'] = $gets[$i]->date;
-            $array[$i]['company'] = $gets[$i]->company;
-            $array[$i]['product'] = $gets[$i]->product;
-            $array[$i]['type'] = $gets[$i]->type;
-            $array[$i]['car'] = $gets[$i]->car;
-            $array[$i]['weight'] = $gets[$i]->weight;
-            $array[$i]['tip'] = $gets[$i]->tip;
-        }
+        // for ($i=0; $i < $arr_length; $i++) { 
+        //     $array[$i]['id'] = $gets[$i]->id;
+        //     $array[$i]['number'] = $gets[$i]->number;
+        //     $array[$i]['date'] = $gets[$i]->date;
+        //     $array[$i]['company'] = $gets[$i]->company;
+        //     $array[$i]['product'] = $gets[$i]->product;
+        //     $array[$i]['type'] = $gets[$i]->type;
+        //     $array[$i]['car'] = $gets[$i]->car;
+        //     $array[$i]['weight'] = $gets[$i]->weight;
+        //     $array[$i]['tip'] = $gets[$i]->tip;
+        // }
 
-        print_r ($array);
-        return view('buy.buy', ['gets' => $array]);
+        // print_r ($array);
+        
+        return view('buy.buy');
     }
 
-    public function operateBuy()
-    {
-        $get_company = DB::select('select company from buy_company');
-        $get_product = DB::select('select product, company from buy_product');
-        $get_type = DB::select('select type, product from buy_type');
-
-        return view('buy.operate_buy', ['get_company' => $get_company, 'get_product' => $get_product, 'get_type' =>$get_type]);
+    public function operateBuy() {
+        return view('buy.operate_buy');
     }
 
 }

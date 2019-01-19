@@ -1,2 +1,1 @@
-插入new_attr问题
-已筛选出new_attr的数据，next完成插入
+在operate_buy页面中实现查找

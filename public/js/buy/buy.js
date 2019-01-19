@@ -83,6 +83,7 @@ function findSelData() {
 	objArray['type'] = $('#sel_type').val();
 	objArray['beginTime'] = $('#sel_begin_time').val();
 	objArray['endTime'] = $('#sel_end_time').val();
+	console.log(objArray);
 	$.ajax({
 		headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

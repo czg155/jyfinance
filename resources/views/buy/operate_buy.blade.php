@@ -6,18 +6,9 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<link rel="stylesheet" type="text/css" href="../css/buy/operate_buy.css">
 	<script type="text/javascript" src="../js/lib/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="../js/buy/operate_buy.js"></script>
+	<script type="text/javascript" src="../js/buy/buy.js"></script>
 </head>
 <body>
-	<?php 
-		print_r($get_company);
-		echo '<br>';
-		echo '<br>';
-		print_r($get_product);
-		echo '<br>';
-		echo '<br>';
-		print_r($get_type);
-	?>
 	<div class="operate">
 		<ul class="operate-items">
 			<li>
