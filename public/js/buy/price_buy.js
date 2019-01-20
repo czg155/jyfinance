@@ -79,13 +79,11 @@ function selData() {
 	objArray['company'] = $('#sel_company').val();
 	objArray['product'] = $('#sel_product').val();
 	objArray['type'] = $('#sel_type').val();
-	objArray['begin'] = $('#sel_begin_time').val();
-	objArray['end'] = $('#sel_end_time').val();
 	$.ajax({
 		headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     	},
-		url: "m/buy/sel_buy",
+		url: "m/buy/sel_price_buy",
 		type: "POST",
 		data: {"inputs" : objArray},
 		dataType: "json",
@@ -96,13 +94,12 @@ function selData() {
 				for (var i = 0; i < get_data.length; i++) {
 					s += '<tr id="tr_' + get_data[i]['id'] + '">';
 					s += '<td class="id"><input name="id" value="' + get_data[i]['id'] + '"></td>';
-					s += '<td class="number"><input type="number" name="number" maxlength="20" value="' + get_data[i]['number'] + '"></td>';
-					s += '<td class="date"><input type="date" name="date" maxlength="20" value="' + get_data[i]['date'] + '"></td>';
 					s += '<td class="company"><input type="text" name="company" maxlength="20" value="' + get_data[i]['company'] + '"></td>';
 					s += '<td class="product"><input type="text" name="product" maxlength="10" value="' + get_data[i]['product'] + '"></td>';
 					s += '<td class="type"><input type="text" name="type" maxlength="10" value="' + get_data[i]['type'] + '"></td>';
-					s += '<td class="car"><input type="text" name="car" maxlength="10" value="' + get_data[i]['car'] + '"></td>';
-					s += '<td class="weight"><input type="number" name="weight" maxlength="20" value="' + get_data[i]['weight'] + '"></td>';
+					s += '<td class="begin"><input type="date" name="begin" maxlength="20" value="' + get_data[i]['begin'] + '"></td>';
+					s += '<td class="end"><input type="date" name="end" maxlength="20" value="' + get_data[i]['end'] + '"></td>';
+					s += '<td class="price"><input type="number" name="price" maxlength="10" value="' + get_data[i]['price'] + '"></td>';
 					s += '<td class="tip"><input type="text" name="tip" maxlength="20" value="' + get_data[i]['tip'] + '"></td>';
 					s += '<td class="delete"><button onclick="delData(' + get_data[i]['id'] + ')">删除</button></td>';
 					s += '<td class="update"><button onclick="updateData(' + get_data[i]['id'] + ')">修改</button></td>';
@@ -115,64 +112,71 @@ function selData() {
 	});
 }
 
-function delData(v) {
-	var re = 0;
-	$.ajax({
-		headers: {
-        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    	},
-		url: "m/buy/delete_buy",
-		type: "POST",
-		data: {"inputs" : v},
-		dataType: "json",
-		success:function(r){
-			if (r.sign == 1) {
-				alert('del success');
-				re = 1;
-			} else {
-				re = 0;
-			}
-		}
-	});
+function addRow() {
+	var s = '<tr>' +
+				'<td class="company"><input type="text" name="company" maxlength="20"></td>' +
+				'<td class="product"><input type="text" name="product" maxlength="10"></td>' +
+				'<td class="type"><input type="text" name="type" maxlength="10"></td>' +
+				'<td class="begin"><input type="date" name="begin" maxlength="20"></td>' +
+				'<td class="end"><input type="date" name="end" maxlength="20"></td>' +
+				'<td class="price"><input type="number" name="price" maxlength="10"></td>' +
+				'<td class="tip"><input type="text" name="tip" maxlength="20"></td>' +
+			'</tr>' +
+			'<tr>' +
+				'<td class="company"><input type="text" name="company" maxlength="20"></td>' +
+				'<td class="product"><input type="text" name="product" maxlength="10"></td>' +
+				'<td class="type"><input type="text" name="type" maxlength="10"></td>' +
+				'<td class="begin"><input type="date" name="begin" maxlength="20"></td>' +
+				'<td class="end"><input type="date" name="end" maxlength="20"></td>' +
+				'<td class="price"><input type="number" name="price" maxlength="10"></td>' +
+				'<td class="tip"><input type="text" name="tip" maxlength="20"></td>' +
+			'</tr>' +
+			'<tr>' +
+				'<td class="company"><input type="text" name="company" maxlength="20"></td>' +
+				'<td class="product"><input type="text" name="product" maxlength="10"></td>' +
+				'<td class="type"><input type="text" name="type" maxlength="10"></td>' +
+				'<td class="begin"><input type="date" name="begin" maxlength="20"></td>' +
+				'<td class="end"><input type="date" name="end" maxlength="20"></td>' +
+				'<td class="price"><input type="number" name="price" maxlength="10"></td>' +
+				'<td class="tip"><input type="text" name="tip" maxlength="20"></td>' +
+			'</tr>';
+	$('#insert_data').append(s);
 }
 
-function updateData(v) {
-	var objArray = {};
-	var td = $('#tr_'+v).find('td');
-	var em = 0;
-	$(td).each(function(index, e) {
-		if (index < 9) {
+function savePriceBuyValue() {
+	var objArray = [];
+	var tr = $('#insert_data').find('tr');
+	$(tr).each(function(index, e) {
+		var td = $(this).find('td');
+		var obj = {};
+		var check = 0;
+		$.each(td, function() {
 			var o = $(this).find('input');
-			if ($(o).attr('name') == 'id') {
-				objArray[$(o).attr('name')] = $(o).val();
-			} else {
-				if ($(o).attr('value') != $(o).val()) {
-					objArray[$(o).attr('name')] = $(o).val();
-					em = 1;
-				}
+			if ($.isEmptyObject($(o).val())) {
+				check += 1;
 			}
+			obj[$(o).attr('name')] = $(o).val();
+		});
+		if (check < 6) {
+			objArray.push(obj);
 		}
 	});
-	if (!em) {
-		objArray = {};
-	}
 
-	var re = 0;
 	$.ajax({
 		headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     	},
-		url: "m/buy/update_buy",
+		url: "m/buy/add_price_buy",
 		type: "POST",
-		data: {"inputs" : objArray},
 		dataType: "json",
+		data: {"inputs" : objArray},
 		success:function(r){
 			if (r.sign == 1) {
-				alert('update success');
-				re = 1;
+				alert('save success');
+				$('.addbox').hide();
+				selDate();
 			} else {
-				re = 0;
-				alert('update fail');
+				alert("save fail");
 			}
 		}
 	});

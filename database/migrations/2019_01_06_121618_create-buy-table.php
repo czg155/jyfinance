@@ -37,8 +37,9 @@ class CreateBuyTable extends Migration
      */
     public function down()
     {
-        // Schema::table('buy', function (Blueprint $table) {
-        //     $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->after('created_at');
-        // });
+        Schema::table('buy', function (Blueprint $table) {
+            // $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'))->after('created_at');
+            // $table->dropColumn('price');
+        });
     }
 }

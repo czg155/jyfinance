@@ -32,7 +32,7 @@
 			<li>
 				结束时间：<input id="sel_end_time" type="date" name="end_date">
 			</li>
-			<li><button onclick="findSelData()">查找</button></li>
+			<li><button onclick="selData()">查找</button></li>
 			<li><button>刷新</button></li>
 		</ul>
 	</div>

@@ -29,32 +29,16 @@ class BuyViewController extends Controller
     }
 
     public function getBuy(){
-        // //查询数据库，获取数据库原始数据
-        // $gets = DB::select('select * from buy');
-
-        // //将原始数据处理
-        // $array = null;
-        // $arr_length = sizeof($gets);
-
-        // for ($i=0; $i < $arr_length; $i++) { 
-        //     $array[$i]['id'] = $gets[$i]->id;
-        //     $array[$i]['number'] = $gets[$i]->number;
-        //     $array[$i]['date'] = $gets[$i]->date;
-        //     $array[$i]['company'] = $gets[$i]->company;
-        //     $array[$i]['product'] = $gets[$i]->product;
-        //     $array[$i]['type'] = $gets[$i]->type;
-        //     $array[$i]['car'] = $gets[$i]->car;
-        //     $array[$i]['weight'] = $gets[$i]->weight;
-        //     $array[$i]['tip'] = $gets[$i]->tip;
-        // }
-
-        // print_r ($array);
-        
         return view('buy.buy');
     }
 
     public function operateBuy() {
         return view('buy.operate_buy');
+    }
+
+    public function priceBuy()
+    {
+        return view('buy.price_Buy');
     }
 
 }

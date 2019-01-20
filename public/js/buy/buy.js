@@ -2,7 +2,7 @@ var ATTR_ALL = [];
 var ATTR_PRODUCT_TYPE = [];
 
 $(function(){
-	$sel = findSel();
+	$sel = selAttr();
 	if ($sel) {
 		//供货单位的select项
 		var c = '<option value="-1" selected = "selected">全部</option>';
@@ -26,7 +26,7 @@ $(function(){
 	}
 });
 
-function findSel() {
+function selAttr() {
 	var re = 0;
 
 	$.ajax({
@@ -74,7 +74,7 @@ function changeProduct(v) {
 	$('#sel_type').html(s);
 }
 
-function findSelData() {
+function selData() {
 	var objArray = {};
 	objArray['company'] = $('#sel_company').val();
 	objArray['product'] = $('#sel_product').val();

@@ -36,12 +36,12 @@
 			<li>
 				结束时间：<input id="sel_end_time" type="date" name="end_date">
 			</li>
-			<li><button onclick="findSelData()">查找</button></li>
+			<li><button onclick="selData()">查找</button></li>
 			<li><button>刷新</button></li>
 			<li><button>报表分析</button></li>
 		</ul>
 		<ul class="operate-right-buttons">
-			<li><button>修改单价</button></li>
+			<li><button><a href="buy/price_buy">修改单价</a></button></li>
 			<li><button><a href="buy/operate_buy">操作</a></button></li>
 			<li><button><a href="buy/add_buy">增加</a></button></li>
 		</ul>

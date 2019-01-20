@@ -188,4 +188,62 @@ class BuyMethodController extends Controller
         return response()->json(array('sign' => 1, 'inputs' => $data));
     }
 
+    public function addPriceBuy(Request $request) {
+        $inputs = $request->input('inputs');
+
+        foreach ($inputs as $key => $value) {
+            DB::table('buy-price')->insert(
+                [
+                    'company' => $value['company'],
+                    'product' => $value['product'],
+                    'type' => $value['type'],
+                    'begin' => $value['begin'],
+                    'end' => $value['end'],
+                    'price' => $value['price'],
+                    'tip' => $value['tip']
+                ]
+            );
+        }
+
+        return response()->json(array('sign' => 1));
+    }
+
+    public function selPrice(Request $request)
+    {
+        $inputs = $request->input('inputs');
+        $s = 'select * from buy-price';
+        $b = 1;
+        foreach ($inputs as $key => $value) {
+
+            if (!empty($value) && $value != -1) {
+                if ($b) {
+                    $s = $s . ' where ';
+                    $b = 0;
+                } else {
+                    $s = $s . ' and ';
+                }
+                $s = $s . $key . '="' . $value . '"';
+            }
+            break;
+
+        }
+        // return $s;
+        $get_data = DB::select($s);
+        $data = array();
+        foreach ($get_data as $key => $value) {
+            $v['id'] = $value->id;
+            $v['company'] = $value->company;
+            $v['product'] = $value->product;
+            $v['type'] = $value->type;
+            $t = strtotime($value->begin);
+            $v['begin'] = date("Y-m-d", $t);
+            $t = strtotime($value->end);
+            $v['end'] = date("Y-m-d", $t);
+            $v['price'] = $value->weight;
+            $v['tip'] = $value->tip;
+            $data[] = $v;
+        }
+        return response()->json(array('sign' => 1, 'inputs' => $data));
+    }
+
 }
