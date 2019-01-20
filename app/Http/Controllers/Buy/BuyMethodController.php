@@ -10,7 +10,7 @@ class BuyMethodController extends Controller
 {
     public function addBuy(Request $request) {
         $inputs = $request->input('inputs');
-        $gets = DB::table('buy-attr-relation')->get();
+        $gets = DB::table('buy_attr_relation')->get();
 
         $attr = [];
         foreach ($gets as $key => $value) {
@@ -100,7 +100,7 @@ class BuyMethodController extends Controller
 
     public function sortAttrBuy()
     {
-        $gets = DB::table('buy-attr-relation')->get();
+        $gets = DB::table('buy_attr_relation')->get();
         $attr_all = [];
         $attr_product_type = [];
         foreach ($gets as $key => $value) {
@@ -190,7 +190,9 @@ class BuyMethodController extends Controller
 
     public function addPriceBuy(Request $request) {
         $inputs = $request->input('inputs');
-
+        if (empty($inputs)) {
+            return response()->json(array('sign' => 2));
+        }
         foreach ($inputs as $key => $value) {
             DB::table('buy-price')->insert(
                 [
@@ -211,10 +213,9 @@ class BuyMethodController extends Controller
     public function selPrice(Request $request)
     {
         $inputs = $request->input('inputs');
-        $s = 'select * from buy-price';
+        $s = 'select * from buy_price';
         $b = 1;
         foreach ($inputs as $key => $value) {
-
             if (!empty($value) && $value != -1) {
                 if ($b) {
                     $s = $s . ' where ';
@@ -224,8 +225,6 @@ class BuyMethodController extends Controller
                 }
                 $s = $s . $key . '="' . $value . '"';
             }
-            break;
-
         }
         // return $s;
         $get_data = DB::select($s);
@@ -239,7 +238,7 @@ class BuyMethodController extends Controller
             $v['begin'] = date("Y-m-d", $t);
             $t = strtotime($value->end);
             $v['end'] = date("Y-m-d", $t);
-            $v['price'] = $value->weight;
+            $v['price'] = $value->price;
             $v['tip'] = $value->tip;
             $data[] = $v;
         }

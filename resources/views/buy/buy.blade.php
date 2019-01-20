@@ -38,7 +38,7 @@
 			</li>
 			<li><button onclick="selData()">查找</button></li>
 			<li><button>刷新</button></li>
-			<li><button>报表分析</button></li>
+			<li><button><a href="buy/state_buy">报表分析</a></button></li>
 		</ul>
 		<ul class="operate-right-buttons">
 			<li><button><a href="buy/price_buy">修改单价</a></button></li>

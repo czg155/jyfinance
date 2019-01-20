@@ -51,11 +51,16 @@ function selAttr() {
 }
 
 function changeCompany(v) {
-	// alert(v);
 	//产品名称的select项
 	var s = '<option value="-1" selected = "selected">全部</option>';
-	for (var o in ATTR_ALL[v]) {
-		s = s + '<option value="' + o + '">' + o + '</option>';
+	if (v == -1) {
+		for (var o in ATTR_PRODUCT_TYPE) {
+			s = s + '<option value="' + o + '">' + o + '</option>';
+		}
+	} else {
+		for (var o in ATTR_ALL[v]) {
+			s = s + '<option value="' + o + '">' + o + '</option>';
+		}
 	}
 	$('#sel_product').html(s);
 
@@ -65,11 +70,14 @@ function changeCompany(v) {
 }
 
 function changeProduct(v) {
+	console.log(ATTR_ALL);
 	//规格的select项
 	var s = '<option value="-1" selected = "selected">全部</option>';
-	var obj = ATTR_ALL[$('#sel_company option:selected').val()][v];
-	for (var i = 0; i < obj.length; i++) {
-		s = s + '<option value="' + obj[i] + '">' +obj[i] + '</option>';
+	if (v != -1) {
+		var obj = ATTR_PRODUCT_TYPE[v];
+		for (var i = 0; i < obj.length; i++) {
+			s = s + '<option value="' + obj[i] + '">' +obj[i] + '</option>';
+		}
 	}
 	$('#sel_type').html(s);
 }
@@ -175,9 +183,19 @@ function savePriceBuyValue() {
 				alert('save success');
 				$('.addbox').hide();
 				selDate();
-			} else {
+			} else if (r.sign == 2) {
+				$('.addbox').hide();
+			}else {
 				alert("save fail");
 			}
 		}
 	});
+}
+
+function btnOpenAddbox() {
+	$('.addbox').show();
+}
+
+function btnCloseAddbox() {
+	$('.addbox').hide();
 }

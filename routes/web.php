@@ -23,6 +23,7 @@ Route::get('/buy/add_buy', function () {
 
 Route::get('/buy/operate_buy', 'Buy\BuyViewController@operateBuy');
 Route::get('/buy/price_buy', 'Buy\BuyViewController@priceBuy');
+Route::get('/buy/state_buy', 'Buy\BuyViewController@stateBuy');
 
 
 Route::get('/sale', function () {

@@ -27,7 +27,8 @@
 				</select>
 			</li>
 			<li><button onclick="selData()">查找</button></li>
-			<li><button>刷新</button></li>
+			<li><button onclick="selData()">刷新</button></li>
+			<li><button onclick="btnOpenAddbox()">添加单价</button></li>
 		</ul>
 	</div>
 	<div class="operatebox">
@@ -52,6 +53,9 @@
 		</table>
 	</div>
 	<div class="addbox">
+		<div>
+			<button onclick="btnCloseAddbox()">关闭</button>
+		</div>
 		<table class="table-addbox">
 			<thead>
 				<th class="company">供货单位</th>

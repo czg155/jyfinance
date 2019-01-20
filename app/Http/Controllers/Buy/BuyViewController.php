@@ -38,7 +38,12 @@ class BuyViewController extends Controller
 
     public function priceBuy()
     {
-        return view('buy.price_Buy');
+        return view('buy.price_buy');
+    }
+
+    public function stateBuy()
+    {
+        return view('buy.state_buy');
     }
 
 }
