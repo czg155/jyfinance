@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Buy;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -248,17 +248,31 @@ class BuyMethodController extends Controller
     public function stateMaterialBuy(Request $request)
     {
         $inputs = $request->input('inputs');
-        // return $inputs;
+
         if (empty($inputs['begin']) && empty($inputs['end'])) {
             return response()->json(array('sign' => 2));
         }
         $gets = DB::table('buy')
-            ->select('id', 'number', 'company', 'product', 'type', 'weight')
+            ->select('company', 'product', 'type', 'weight')
             ->where([
                 ['date', '>=', $inputs['begin']],
                 ['date', '<=', $inputs['end']],])
             ->get();
-        return $gets;
+
+        $data = [];
+        foreach ($gets as $key => $value) {
+            if (!in_array($value->company, array_keys($data))) {
+                $data[$value->company] = [];
+            }
+            if (!in_array($value->product, array_keys($data[$value->company]))) {
+                $data[$value->company][$value->product] = [];
+            }
+            if (!in_array($value->type, array_keys($data[$value->company][$value->product]))) {
+                $data[$value->company][$value->product][$value->type] = 0;
+            }
+            $data[$value->company][$value->product][$value->type] += $value->weight;
+        }
+        return response()->json(array('sign' => 1, 'inputs' => $data));
     }
 
 }
