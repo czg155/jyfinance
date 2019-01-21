@@ -27,10 +27,10 @@
 				</select>
 			</li>
 			<li>
-				起始时间：<input id="sel_begin_time" type="date" name="begin_date">
+				起始时间：<input id="sel_begin_date" type="date" name="begin_date">
 			</li>
 			<li>
-				结束时间：<input id="sel_end_time" type="date" name="end_date">
+				结束时间：<input id="sel_end_date" type="date" name="end_date">
 			</li>
 			<li><button onclick="selData()">查找</button></li>
 			<li><button>刷新</button></li>

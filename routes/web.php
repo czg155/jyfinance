@@ -41,3 +41,4 @@ Route::post('/m/buy/sortattr_buy', 'Buy\BuyMethodController@sortAttrBuy');
 Route::post('/m/buy/sel_buy', 'Buy\BuyMethodController@selBuy');
 Route::post('/m/buy/sel_price_buy', 'Buy\BuyMethodController@selPrice');
 Route::post('/m/buy/add_price_buy', 'Buy\BuyMethodController@addPriceBuy');
+Route::post('/m/buy/state_material_buy', 'Buy\BuyMethodController@stateMaterialBuy');

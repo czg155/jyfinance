@@ -245,4 +245,20 @@ class BuyMethodController extends Controller
         return response()->json(array('sign' => 1, 'inputs' => $data));
     }
 
+    public function stateMaterialBuy(Request $request)
+    {
+        $inputs = $request->input('inputs');
+        // return $inputs;
+        if (empty($inputs['begin']) && empty($inputs['end'])) {
+            return response()->json(array('sign' => 2));
+        }
+        $gets = DB::table('buy')
+            ->select('id', 'number', 'company', 'product', 'type', 'weight')
+            ->where([
+                ['date', '>=', $inputs['begin']],
+                ['date', '<=', $inputs['end']],])
+            ->get();
+        return $gets;
+    }
+
 }

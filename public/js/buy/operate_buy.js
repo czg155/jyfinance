@@ -87,8 +87,8 @@ function selData() {
 	objArray['company'] = $('#sel_company').val();
 	objArray['product'] = $('#sel_product').val();
 	objArray['type'] = $('#sel_type').val();
-	objArray['begin'] = $('#sel_begin_time').val();
-	objArray['end'] = $('#sel_end_time').val();
+	objArray['begin'] = $('#sel_begin_date').val();
+	objArray['end'] = $('#sel_end_date').val();
 	$.ajax({
 		headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
