@@ -20,6 +20,7 @@ function selStateMaterialBuyData() {
 				buildStateMaterialBuyTable(r.inputs);
 				var caption = '旌原' + $('#sel_begin_date').val() + '——' + $('#sel_end_date').val() + '进料报表';
 				$('#caption_state_material_buy').html(caption);
+				$('#table_state_material_buy').show();
 			} else if (r.sign == 2) {	
 				alert("查找失败！请检查起始时间和结束时间。");
 			}

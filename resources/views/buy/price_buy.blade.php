@@ -28,7 +28,8 @@
 			</li>
 			<li><button onclick="selData()">查找</button></li>
 			<li><button onclick="selData()">刷新</button></li>
-			<li><button onclick="btnOpenAddbox()">添加单价</button></li>
+			<li><button onclick="btnOpenAddbox(this)">添加单价</button></li>
+			<li><button onclick="btnOpenAddDfltbox(this)">添加默认单价</button></li>
 		</ul>
 	</div>
 	<div class="operatebox">
@@ -54,7 +55,7 @@
 	</div>
 	<div class="addbox">
 		<div>
-			<button onclick="btnCloseAddbox()">关闭</button>
+			<button onclick="btnCloseAddbox(this)">关闭</button>
 		</div>
 		<table class="table-addbox">
 			<thead>
@@ -101,6 +102,41 @@
 				</tr>
 				<tr>
 					<td><button onclick="savePriceBuyValue()">提交</button></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<div class="adddfltbox">
+		<div>
+			<button onclick="btnCloseAddDfltbox()">关闭</button>
+		</div>
+		<table class="table-addbox">
+			<thead>
+				<th class="company">供货单位</th>
+				<th class="product">产品名称</th>
+				<th class="type">规格</th>
+				<th class="begin" style="display: none;">起始日期</th>
+				<th class="end" style="display: none;">结束日期</th>
+				<th class="price">单价</th>
+				<th class="tip">备注</th>
+			</thead>
+			<tbody id="insert_dflt_data">
+				<tr>
+					<td class="company"><input type="text" name="company" maxlength="20"></td>
+					<td class="product"><input type="text" name="product" maxlength="10"></td>
+					<td class="type"><input type="text" name="type" maxlength="10"></td>
+					<td class="begin" style="display: none;"><input type="date" name="begin" maxlength="20" value="1919-01-01"></td>
+					<td class="end" style="display: none;"><input type="date" name="end" maxlength="20" value="1919-01-01"></td>
+					<td class="price"><input type="number" name="price" maxlength="10"></td>
+					<td class="tip"><input type="text" name="tip" maxlength="20"></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7"><button onclick="addDfltRow()">添加行</button></td>
+				</tr>
+				<tr>
+					<td><button onclick="saveDfltPriceBuyValue()">提交</button></td>
 				</tr>
 			</tfoot>
 		</table>

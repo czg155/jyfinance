@@ -151,6 +151,37 @@ function addRow() {
 	$('#insert_data').append(s);
 }
 
+function addDfltRow() {
+	var s = '<tr>' +
+				'<td class="company"><input type="text" name="company" maxlength="20"></td>' +
+				'<td class="product"><input type="text" name="product" maxlength="10"></td>' +
+				'<td class="type"><input type="text" name="type" maxlength="10"></td>' +
+				'<td class="begin" style="display: none;"><input type="date" name="begin" maxlength="20" value="1919-01-01"></td>' +
+				'<td class="end" style="display: none;"><input type="date" name="end" maxlength="20" value="1919-01-01"></td>' +
+				'<td class="price"><input type="number" name="price" maxlength="10"></td>' +
+				'<td class="tip"><input type="text" name="tip" maxlength="20"></td>' +
+			'</tr>' +
+			'<tr>' +
+				'<td class="company"><input type="text" name="company" maxlength="20"></td>' +
+				'<td class="product"><input type="text" name="product" maxlength="10"></td>' +
+				'<td class="type"><input type="text" name="type" maxlength="10"></td>' +
+				'<td class="begin" style="display: none;"><input type="date" name="begin" maxlength="20" value="1919-01-01"></td>' +
+				'<td class="end" style="display: none;"><input type="date" name="end" maxlength="20" value="1919-01-01"></td>' +
+				'<td class="price"><input type="number" name="price" maxlength="10"></td>' +
+				'<td class="tip"><input type="text" name="tip" maxlength="20"></td>' +
+			'</tr>' +
+			'<tr>' +
+				'<td class="company"><input type="text" name="company" maxlength="20"></td>' +
+				'<td class="product"><input type="text" name="product" maxlength="10"></td>' +
+				'<td class="type"><input type="text" name="type" maxlength="10"></td>' +
+				'<td class="begin" style="display: none;"><input type="date" name="begin" maxlength="20" value="1919-01-01"></td>' +
+				'<td class="end" style="display: none;"><input type="date" name="end" maxlength="20" value="1919-01-01"></td>' +
+				'<td class="price"><input type="number" name="price" maxlength="10"></td>' +
+				'<td class="tip"><input type="text" name="tip" maxlength="20"></td>' +
+			'</tr>';
+	$('#insert_dflt_data').append(s);
+}
+
 function savePriceBuyValue() {
 	var objArray = [];
 	var tr = $('#insert_data').find('tr');
@@ -182,7 +213,6 @@ function savePriceBuyValue() {
 			if (r.sign == 1) {
 				alert('save success');
 				$('.addbox').hide();
-				selDate();
 			} else if (r.sign == 2) {
 				$('.addbox').hide();
 			}else {
@@ -192,10 +222,58 @@ function savePriceBuyValue() {
 	});
 }
 
-function btnOpenAddbox() {
+function saveDfltPriceBuyValue() {
+	var objArray = [];
+	var tr = $('#insert_dflt_data').find('tr');
+	$(tr).each(function(index, e) {
+		var td = $(this).find('td');
+		var obj = {};
+		var check = 0;
+		$.each(td, function() {
+			var o = $(this).find('input');
+			if ($.isEmptyObject($(o).val())) {
+				check += 1;
+			}
+			obj[$(o).attr('name')] = $(o).val();
+		});
+		if (check < 6) {
+			objArray.push(obj);
+		}
+	});
+
+	$.ajax({
+		headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	},
+		url: "m/buy/add_price_buy",
+		type: "POST",
+		dataType: "json",
+		data: {"inputs" : objArray},
+		success:function(r){
+			if (r.sign == 1) {
+				alert('save success');
+				$('.adddfltbox').hide();
+			} else if (r.sign == 2) {
+				$('.adddfltbox').hide();
+			}else {
+				alert("save fail");
+			}
+		}
+	});
+}
+
+function btnOpenAddbox(o) {
 	$('.addbox').show();
 }
 
-function btnCloseAddbox() {
+function btnCloseAddbox(o) {
 	$('.addbox').hide();
+}
+
+function btnOpenAddDfltbox(o) {
+	$('.adddfltbox').show();
+}
+
+function btnCloseAddDfltbox(o) {
+	$('.adddfltbox').hide();
 }

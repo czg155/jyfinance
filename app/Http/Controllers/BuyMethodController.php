@@ -194,7 +194,7 @@ class BuyMethodController extends Controller
             return response()->json(array('sign' => 2));
         }
         foreach ($inputs as $key => $value) {
-            DB::table('buy-price')->insert(
+            DB::table('buy_price')->insert(
                 [
                     'company' => $value['company'],
                     'product' => $value['product'],
