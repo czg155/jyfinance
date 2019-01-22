@@ -32,6 +32,10 @@ class BuyViewController extends Controller
         return view('buy.buy');
     }
 
+    public function addBuy(){
+        return view('buy.add_buy');
+    }
+
     public function operateBuy() {
         return view('buy.operate_buy');
     }

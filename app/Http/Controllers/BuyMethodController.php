@@ -59,7 +59,7 @@ class BuyMethodController extends Controller
         foreach ($new_attr as $key_company => $value_company) {
             foreach ($value_company as $key_product => $value_product) {
                 foreach ($value_product as $key_type => $value_type) {
-                    DB::table('buy-attr-relation')->insert(
+                    DB::table('buy_attr_relation')->insert(
                         ['company' => $key_company, 'product' => $key_product, 'type' => $value_type]
                     );
                 }

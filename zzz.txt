@@ -1,2 +1,1 @@
-buy 已知功能完成
-next 设计sale模块
+sale 插入模块完成

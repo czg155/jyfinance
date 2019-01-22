@@ -1,0 +1,15 @@
+.addbox {
+	width: 100%;
+}
+
+.table-data {
+	width: 80%;
+}
+
+.table-data tbody tr td{
+	width: 9%;
+}
+
+.table-data tbody tr td input{
+	width: 80%;
+}

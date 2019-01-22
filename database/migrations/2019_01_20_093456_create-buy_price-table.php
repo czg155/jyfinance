@@ -14,16 +14,16 @@ class CreateBuyPriceTable extends Migration
     public function up()
     {
         //
-        Schema::create('buy-price', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('company')->nullable();
-            $table->string('product')->nullable();
-            $table->string('type')->nullable();
-            $table->datetime('begin')->nullable();
-            $table->datetime('end')->nullable();
-            $table->double('price', 20, 2)->nullable()->default(0);
-            $table->string('tip')->nullable();
-        });
+        // Schema::create('buy-price', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('company')->nullable();
+        //     $table->string('product')->nullable();
+        //     $table->string('type')->nullable();
+        //     $table->datetime('begin')->nullable();
+        //     $table->datetime('end')->nullable();
+        //     $table->double('price', 20, 2)->nullable()->default(0);
+        //     $table->string('tip')->nullable();
+        // });
     }
 
     /**
