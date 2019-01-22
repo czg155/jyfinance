@@ -272,6 +272,7 @@ class BuyMethodController extends Controller
             }
             $data[$value->company][$value->product][$value->type] += $value->weight;
         }
+
         return response()->json(array('sign' => 1, 'inputs' => $data));
     }
 
