@@ -33,7 +33,7 @@ function selAttr() {
 		headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     	},
-		url: "m/buy/sortattr_buy",
+		url: "m/buy/sel_attr_buy",
 		type: "POST",
 		dataType: "json",
 		async: false,

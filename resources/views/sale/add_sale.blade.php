@@ -13,9 +13,10 @@
 		<ul class="template">
 			<li><span>模板------</span></li>
 			<li class="date">日期：<input id="template_date" type="date" name="t-date"></li>
-			<li class="company">供货单位：<input id="template_company" type="text" name="t-company" maxlength="20"></li>
-			<li class="product">产品名称：<input id="template_product" type="text" name="t-product" maxlength="10"></li>
-			<li class="type">类型：<input id="template_type" type="text" name="t-type" maxlength="10"></li>
+			<li class="company">施工单位：<input id="template_company" type="text" name="t-company" maxlength="20"></li>
+			<li class="company">工程名称：<input id="template_project" type="text" name="t-project" maxlength="20"></li>
+			<li class="company">施工部位：<input id="template_part" type="text" name="t-part" maxlength="20"></li>
+			<li class="product">强度等级：<input id="template_product" type="text" name="t-product" maxlength="10"></li>
 		</ul>
 		<table class="table-data" id="add-sale-table" border="1px">
 			<thead>
@@ -25,7 +26,7 @@
 				<th class="company">施工单位</th>
 				<th class="project">工程名称</th>
 				<th class="part">施工部位</th>
-				<th class="product">规格</th>
+				<th class="product">强度等级</th>
 				<th class="weight">方量</th>
 				<th class="car">运输车号</th>
 				<th class="carindex">车次</th>

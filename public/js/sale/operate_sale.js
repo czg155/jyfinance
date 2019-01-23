@@ -91,10 +91,73 @@ function selData() {
 					s += '<td class="car"><input type="text" name="car" maxlength="10" value="' + get_data[i]['car'] + '"></td>';
 					s += '<td class="carindex"><input type="number" name="carindex" maxlength="3" value="' + get_data[i]['carindex'] + '"></td>';
 					s += '<td class="tip"><input type="text" name="tip" maxlength="20" value="' + get_data[i]['tip'] + '"></td>';
+					s += '<td class="delete"><button onclick="delData(' + get_data[i]['id'] + ')">删除</button></td>';
+					s += '<td class="update"><button onclick="updateData(' + get_data[i]['id'] + ')">修改</button></td>';
 					s += '</tr>';
 				}
 				$('#sel_data').html(s);
 			} else {	
+			}
+		}
+	});
+}
+
+function delData(v) {
+	var re = 0;
+	$.ajax({
+		headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	},
+		url: "m/sale/delete_sale",
+		type: "POST",
+		data: {"inputs" : v},
+		dataType: "json",
+		success:function(r){
+			if (r.sign == 1) {
+				alert('del success');
+				re = 1;
+			} else {
+				re = 0;
+			}
+		}
+	});
+}
+
+function updateData(v) {
+	var objArray = {};
+	var td = $('#tr_'+v).find('td');
+	var em = 0;
+	$(td).each(function(index, e) {
+		var o = $(this).find('input');
+		if ($(o).attr('name') == 'id') {
+			objArray[$(o).attr('name')] = $(o).val();
+		} else {
+			if ($(o).attr('value') != $(o).val()) {
+				objArray[$(o).attr('name')] = $(o).val();
+				em = 1;
+			}
+		}
+	});
+	if (!em) {
+		objArray = {};
+	}
+
+	var re = 0;
+	$.ajax({
+		headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    	},
+		url: "m/sale/update_sale",
+		type: "POST",
+		data: {"inputs" : objArray},
+		dataType: "json",
+		success:function(r){
+			if (r.sign == 1) {
+				alert('update success');
+				re = 1;
+			} else {
+				re = 0;
+				alert('update fail');
 			}
 		}
 	});

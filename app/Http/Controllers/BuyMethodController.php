@@ -98,7 +98,7 @@ class BuyMethodController extends Controller
         }
     }
 
-    public function sortAttrBuy()
+    public function selAttrBuy()
     {
         $gets = DB::table('buy_attr_relation')->get();
         $attr_all = [];

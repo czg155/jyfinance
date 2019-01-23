@@ -13,4 +13,8 @@ class SaleViewController extends Controller
     public function addSale(){
         return view('sale.add_sale');
     }
+
+    public function operateSale() {
+        return view('sale.operate_sale');
+    }
 }

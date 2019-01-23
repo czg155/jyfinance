@@ -33,7 +33,7 @@ function selAttr() {
 		headers: {
         	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     	},
-		url: "m/buy/sortattr_buy",
+		url: "m/buy/sel_attr_buy",
 		type: "POST",
 		dataType: "json",
 		async: false,
@@ -149,15 +149,13 @@ function updateData(v) {
 	var td = $('#tr_'+v).find('td');
 	var em = 0;
 	$(td).each(function(index, e) {
-		if (index < 9) {
-			var o = $(this).find('input');
-			if ($(o).attr('name') == 'id') {
+		var o = $(this).find('input');
+		if ($(o).attr('name') == 'id') {
+			objArray[$(o).attr('name')] = $(o).val();
+		} else {
+			if ($(o).attr('value') != $(o).val()) {
 				objArray[$(o).attr('name')] = $(o).val();
-			} else {
-				if ($(o).attr('value') != $(o).val()) {
-					objArray[$(o).attr('name')] = $(o).val();
-					em = 1;
-				}
+				em = 1;
 			}
 		}
 	});
